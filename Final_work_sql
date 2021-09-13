@@ -1,0 +1,115 @@
+DROP DATABASE IF EXISTS gothem_police;
+CREATE DATABASE gothem_police;
+
+USE gothem_police
+
+DROP TABLE IF EXISTS declarents;
+CREATE TABLE declarents(
+	id SERIAL PRIMARY KEY,
+	firstname VARCHAR(100),
+	lastname VARCHAR(100),
+	phone BIGINT UNSIGNED NULL,
+	adress VARCHAR(150),
+	emeil VARCHAR(150) UNIQUE,
+	INDEX users_phone_idx(phone),
+    INDEX users_firstname_lastname_idx(firstname, lastname)
+	);
+INSERT INTO `declarents` VALUES (1,'Брюс','Уэйн',0,'68324 Roberts Summit Suite 159\nPort Nils, KY 48417-5950','river38@yahoo.com'),(2,'Линда','Лэйк',56,'67126 Wehner Court\nNicolasstad, SC 65407','manuel94@gradypadberg.com'),(3,'Ядовитый','Плющ',613,'0820 Kirlin Mall Suite 072\nNorth Elody, NJ 03917-6677','ivah.quigley@gmail.com'),(4,'Кассандра','Каин',701,'6367 Schultz Cliffs\nPort Charityberg, NH 06229-3543','clynch@hotmail.com'),(5,'Люциус','Фокс',637,'93380 Lera Road\nSouth Sabryna, KY 86158','leuschke.daren@harvey.org'),(6,'Талия','Аль-Гул',453197833,'7235 Balistreri Roads\nD\'Amoreside, KS 63349-2575','king.kennedi@yahoo.com'),(7,'Женщина','Кошка',318024,'567 Labadie Ways\nEast Lisetteville, RI 81500-1208','lucius73@spinka.com'),(8,'Освальд','Кабблпот',8392309225,'271 Bashirian Falls\nMarquardthaven, KY 07822-2242','hanna92@reynoldstreutel.com'),(9,'Питер','Паркер',0,'6099 Kuhn Tunnel Apt. 564\nDooleyside, MD 91343','wbailey@gmail.com'),(10,'Матчас','Мелоун',9367513797,'4702 Morissette Summit\nTheamouth, HI 71453-1364','polson@gmail.com'),(11,'Фродо','Бэггинс',0,'56069 Friesen Branch\nJaleelshire, UT 06875','ernie.pollich@yahoo.com'),(12,'Джон','Малкович',88,'71893 VonRueden Meadows Suite 212\nGreentown, WA 47328-3460','sid13@yahoo.com'),(13,'Майкл','Киттон',668924,'81204 Liliane Drive\nWalkerport, IL 62699-2558','jesus09@gmail.com'),(14,'Капитан','Америка',0,'51471 Conroy Underpass Apt. 847\nNorth Jalen, IL 39671-0731','holly70@klein.com'),(15,'Харли','Квин',0,'675 Lubowitz Ridges\nLeilanichester, TN 67645','nwisoky@pfeffer.com');
+
+DROP TABLE IF EXISTS claims;
+CREATE TABLE claims(
+	id SERIAL PRIMARY KEY,
+	declarents_id BIGINT UNSIGNED NOT NULL,
+	created_at DATETIME DEFAULT NOW(),
+	theme_id  BIGINT UNSIGNED NOT NULL,
+	body TEXT,
+	officer_id BIGINT UNSIGNED NOT NULL,
+	date_of_issue DATETIME DEFAULT NOW() NULL,
+	FOREIGN KEY (declarents_id) REFERENCES declarents(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+	FOREIGN KEY (theme_id) REFERENCES themes(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+	FOREIGN KEY (officer_id) REFERENCES officers(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+INSERT INTO `claims` VALUES (1,1,'2021-08-13',2,'Consequatur quis pariatur dolores non modi. Aliquid nulla numquam eos ducimus pariatur. Qui qui aspernatur sit itaque modi sint enim. Sapiente saepe et sint perferendis maxime voluptatem.',2,'2021-09-17'),(2,1,'2021-08-17',3,'Velit eligendi quia veritatis exercitationem doloremque. Accusamus perferendis consequuntur non sit sit officiis quia.',9,'2021-09-11'),(3,6,'2021-09-01',3,'Accusamus dignissimos et id. Amet minima assumenda adipisci voluptas beatae laboriosam. Inventore nostrum velit qui facilis similique quas aut. Ipsam est suscipit voluptates dicta soluta minus. Quo fugiat tenetur est illum dolorum animi tempora.',10,'2021-09-15'),(4,2,'2021-08-16',5,'Non occaecati aliquam iste qui sed. Aspernatur unde unde qui nesciunt id. Maiores similique consequatur aut nobis debitis. Sed possimus voluptatum eius dolores sed ex numquam qui.',4,'2021-09-13'),(5,3,'2021-08-25',4,'Eaque iusto et est. Dolore explicabo et quod. Molestias corporis voluptatem nostrum id rem ut fuga excepturi. Aut voluptas occaecati voluptas quibusdam ut id et.',2,NULL),(6,4,'2021-08-13',1,'Possimus sed facere distinctio officia nesciunt et consequatur. Vel necessitatibus et placeat et eligendi optio ab officia. Qui aut qui dolorum debitis molestiae iste. Velit dolore sint omnis sunt soluta et.',5,'2021-09-17'),(7,7,'2021-08-20',1,'Voluptatem ducimus error minima doloremque accusantium numquam expedita. Consectetur id perspiciatis in qui. Et et optio deserunt illum et dolorem. Est inventore cupiditate dolore aut.',4,'2021-09-15'),(8,7,'2021-08-25',1,'Mollitia ipsam a quidem. Fugit aut excepturi sed voluptate velit. Ut quam et totam cum est. Ducimus debitis dolore nostrum iure vitae quia.',11,NULL),(9,5,'2021-08-10',3,'Cumque est sint vel aperiam ut officia qui. Amet doloribus ad porro earum mollitia. Dolorem rem qui aut voluptatem similique ea. Nihil ratione et et sed.',12,'2021-09-08'),(10,8,'2021-09-03',4,'Reprehenderit amet in vitae ut repellat aliquam consectetur animi. Blanditiis adipisci ut enim ad. Aperiam nihil ut optio. Quo enim iusto deleniti eum id blanditiis.',1,NULL),(11,9,'2021-09-13',3,'Et a qui itaque minus beatae. Nihil natus aut qui qui eum soluta placeat. Excepturi dolorum omnis rem eveniet vel. Voluptatem minima quod dolorem similique non consequuntur blanditiis.',12,'2021-09-17'),(12,1,'2021-09-04',2,'Beatae quia laborum voluptatem. Quia dolor aut blanditiis qui et harum officiis. Qui voluptatem tempora voluptatem amet officiis. Quia veniam dolorem quia velit quaerat veniam. Qui dignissimos similique nemo nam non.',1,'2021-09-16'),(13,10,'2021-08-10',4,'Laudantium aliquid nihil porro voluptatum ad dolorem consequuntur illum. Quos qui hic nobis soluta sequi. Minus voluptatem distinctio vel quisquam.',4,'2021-09-15'),(14,11,'2021-08-09',5,'Magnam nesciunt perferendis non et alias et pariatur adipisci. Magnam non porro ut autem sed eum consequatur. Unde temporibus fugit non non ut atque nostrum.',12,'2021-09-15'),(15,12,'2021-08-26',5,'Dolor quo perferendis sunt enim aut exercitationem. Distinctio porro sunt est pariatur est eveniet odio esse. Ipsa est et ducimus et doloremque quidem.',3,'2021-09-15'),(16,13,'2021-09-16',1,'Ullam cumque voluptas sed veritatis sit aut deleniti. Dolor aut blanditiis tenetur omnis culpa rerum. Quibusdam doloribus error esse eum molestiae nihil. Explicabo laudantium minima voluptatem quia. Aliquam consequatur non necessitatibus voluptatibus officia.',6,'2021-09-17'),(17,14,'2021-01-05',1,'Enim ullam nesciunt ex rem cum eos. Qui cum id sequi occaecati. Repudiandae neque voluptatem hic ut facere.',7,'2021-09-12'),(18,15,'2021-09-08',2,'Provident voluptas laborum illum cumque sed quasi rerum debitis. Et dicta enim eos est qui illum sed. Officiis non nihil et autem.',5,'2021-09-17');
+
+DROP TABLE IF EXISTS themes;
+CREATE TABLE themes(
+	id SERIAL PRIMARY KEY,
+	theme VARCHAR(50)
+);
+
+INSERT INTO `themes` VALUES (1,'несогласие с действиями Бэтмена'),(2,'несогласие с действиями Джокера'),(3,'несогласие с действиям полиции'),(4,'несогласие с действиями мафии'),(5,'другое');
+
+DROP TABLE IF EXISTS officers;
+CREATE TABLE officers(
+	id SERIAL PRIMARY KEY,
+	firstname VARCHAR(100),
+	lastname VARCHAR(100),
+	badge_number BIGINT UNSIGNED NOT NULL,
+	work_phone BIGINT UNSIGNED NULL,
+	department_id BIGINT UNSIGNED NOT NULL,
+	chiefs_id BIGINT UNSIGNED NOT NULL,
+	FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+INSERT INTO `officers` VALUES (1,'Карлос','Альварес',68,930,1,1),(2,'Ребекка','Малкахи',0,0,2,1),(3,'Дональд','Пик',0,1,3,1),(4,'Нора','Филдс',567,1,1,1),(5,'Стэйси','Стэйси',35329,631535,2,2),(6,'Джош','Азеведа',799759,59,3,2),(7,'Moshe','Moen',173,1,1,2),(8,'Роми','Чендлер',24519427,5010351786,2,2),(9,'Маркус','Уайз',629,991,3,3),(10,'Джейми','Харпер',576765635,9560518364,1,3),(11,'Энди','Хоу',9,0,2,3),(12,'Кельвин','Мао',2399120,5222166311,3,3);
+
+DROP TABLE IF EXISTS officers_function;
+CREATE TABLE officers_functions(
+ 	officer_id BIGINT UNSIGNED NOT NULL,
+  	function_id BIGINT UNSIGNED NOT NULL,
+	FOREIGN KEY (function_id) REFERENCES functions(id),
+	FOREIGN KEY (officer_id) REFERENCES officers(id)
+);
+INSERT INTO `officers_functions` VALUES (1,1),(1,5),(2,1),(3,1),(4,2),(5,4),(6,4),(7,1),(7,5),(8,2),(8,5),(9,1),(10,3),(11,4),(12,5);
+
+DROP TABLE IF EXISTS functions;
+CREATE TABLE functions(
+	id SERIAL PRIMARY KEY,
+	function VARCHAR(100)
+);
+INSERT INTO `functions` VALUES (1,'детектив'),(2,'секретарь'),(3,'старший детектив'),(4,'патрульный'),(5,'бухгалтер');
+
+DROP TABLE IF EXISTS departments;
+CREATE TABLE departments(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100),
+	adress VARCHAR(100),
+	chief_id BIGINT UNSIGNED NOT NULL,
+	FOREIGN KEY (chief_id) REFERENCES chiefs(id)
+);
+INSERT INTO `departments` VALUES (1,'Отдел по тяжким преступлениям','9241 Schulist Lake Apt. 342\nWest Ardellamouth, PA 19131-0698',1),(2,'Отдел по расследованию убийств','41387 Feeney Cliffs Suite 447\nFletahaven, MS 40456',2),(3,'Отдел по связи с общественностью','835 Schamberger Garden\nSouth Mellie, ID 04107',3);
+
+DROP TABLE IF EXISTS measures;
+CREATE TABLE measures(
+	id SERIAL PRIMARY KEY,
+	measure VARCHAR(100)
+);
+INSERT INTO `measures` VALUES (1,'административный штраф'),(2,'гражданский иск'),(3,'предупреждение'),(4,'уголовное преследование'),(5,'меры не принимались');
+
+DROP TABLE IF EXISTS chiefs;
+CREATE TABLE chiefs(
+	id SERIAL PRIMARY KEY,
+	firstname VARCHAR(100),
+	lastname VARCHAR(100),
+	badge_number BIGINT UNSIGNED NOT NULL,
+	work_phone BIGINT UNSIGNED NOT NULL
+ );
+
+INSERT INTO `chiefs` VALUES (1,'Джеймс','Гордон',804,71449),(2,'Маккензи','Бок',303,81),(3,'Питер','Полинг',62,484847);
+
+DROP TABLE IF EXISTS answers;
+CREATE TABLE answers(
+	id SERIAL PRIMARY KEY,
+	claim_id BIGINT UNSIGNED NOT NULL,
+	declarent_id BIGINT UNSIGNED NOT NULL,
+	result enum('satisfied','declined','ignored'),
+	measure_id BIGINT UNSIGNED NOT NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	body TEXT,
+	officer_id BIGINT UNSIGNED NOT NULL,
+	FOREIGN KEY (measure_id) REFERENCES measures(id),
+	FOREIGN KEY (officer_id) REFERENCES officers(id),
+	FOREIGN KEY (claim_id) REFERENCES claims(id),
+	FOREIGN KEY (declarent_id) REFERENCES declarents(id)
+ );
+ 
+INSERT INTO `answers` VALUES (1,1,1,'satisfied',4,'2021-09-17','Possimus quos tenetur possimus voluptatum ea ut. Quae in similique consequatur itaque. Voluptatem et optio rem eaque itaque debitis.',2),(2,2,1,'satisfied',3,'2021-09-11','Saepe et assumenda accusamus minima omnis maiores architecto. Error eligendi aut iusto soluta magni unde. Quis omnis ea cumque a sit voluptas.',9),(3,3,6,'ignored',5,'2021-09-15','Aut enim temporibus aut asperiores. Labore necessitatibus fugit explicabo quibusdam consequuntur expedita. Fuga aperiam nemo et blanditiis officia vero. Tenetur qui et dolore. Assumenda blanditiis id voluptatum ipsum dolore.',10),(4,4,2,'ignored',5,'2021-09-13','Minima non nostrum ut voluptatem modi modi soluta. Exercitationem harum qui adipisci porro. Consequuntur reprehenderit eum voluptas et. Sapiente sit nam voluptate iure.',4),(5,6,4,'declined',5,'2021-09-17','Alias culpa quia nobis quam. Reprehenderit ipsum mollitia voluptatem. Non itaque nobis fugit fugit id ducimus.',5),(6,7,1,'satisfied',2,'2021-09-15','Quis explicabo modi magni iste. Dicta laborum in qui.',11),(7,9,5,'satisfied',3,'2021-09-08','Est veniam nihil eos aut voluptatem. Qui error qui natus nisi consequatur minima et et.',12),(8,11,9,'satisfied',3,'2021-09-17','Quia totam ut dolores repudiandae atque a. Sit esse sit qui rerum est quisquam ad. Est rerum et veritatis delectus earum doloribus. Voluptates dolorem ea architecto.',3),(9,12,1,'ignored',5,'2021-09-16','Beatae accusamus modi porro. Qui laudantium voluptatibus maxime quo sunt aut. Nihil nam cupiditate nostrum aut suscipit nostrum labore. Aut culpa neque est et ratione deserunt.',1),(10,13,10,'declined',5,'2021-09-15','Sit incidunt quo molestiae odio at. In minima sint est omnis quis. Pariatur amet excepturi consequatur necessitatibus occaecati voluptas magnam consequatur. Error non pariatur sed sit vel.',4),(11,14,11,'satisfied',4,'2021-09-15','Quidem molestiae et incidunt corrupti qui molestiae odio. Modi id et minus. Aut aut neque vero exercitationem ab fuga. Molestiae quasi esse est voluptate illo sed atque.',12),(12,15,12,'declined',5,'2021-09-15','Sed animi totam ea voluptatibus et. Consectetur sunt tempore laudantium dolorem molestias a et. Est qui unde veritatis ut non laborum.',3),(13,16,13,'satisfied',2,'2021-09-06','Itaque sit illum perferendis eligendi molestiae reprehenderit. Est minima voluptates sapiente voluptas. Nesciunt in est iusto non et.',6),(14,17,14,'ignored',5,'2021-09-12','Dolores et asperiores nobis voluptatem animi consequatur. Maiores eligendi velit sunt sint laudantium. Voluptatem laboriosam distinctio qui consequatur. In et quos est aliquid tempore.',7),(15,18,15,'ignored',5,'2021-09-17','Temporibus repudiandae assumenda atque quo nobis qui. Aut rerum pariatur ut vero est aperiam. Voluptatem sint quidem dolor ab illo.',8);
