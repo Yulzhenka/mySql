@@ -12,8 +12,8 @@ CREATE TABLE declarents(
 	adress VARCHAR(150),
 	emeil VARCHAR(150) UNIQUE,
 	INDEX users_phone_idx(phone),
-    INDEX users_firstname_lastname_idx(firstname, lastname)
-	);
+    	INDEX users_firstname_lastname_idx(firstname, lastname)
+);
 INSERT INTO `declarents` VALUES (1,'Брюс','Уэйн',0,'68324 Roberts Summit Suite 159\nPort Nils, KY 48417-5950','river38@yahoo.com'),(2,'Линда','Лэйк',56,'67126 Wehner Court\nNicolasstad, SC 65407','manuel94@gradypadberg.com'),(3,'Ядовитый','Плющ',613,'0820 Kirlin Mall Suite 072\nNorth Elody, NJ 03917-6677','ivah.quigley@gmail.com'),(4,'Кассандра','Каин',701,'6367 Schultz Cliffs\nPort Charityberg, NH 06229-3543','clynch@hotmail.com'),(5,'Люциус','Фокс',637,'93380 Lera Road\nSouth Sabryna, KY 86158','leuschke.daren@harvey.org'),(6,'Талия','Аль-Гул',453197833,'7235 Balistreri Roads\nD\'Amoreside, KS 63349-2575','king.kennedi@yahoo.com'),(7,'Женщина','Кошка',318024,'567 Labadie Ways\nEast Lisetteville, RI 81500-1208','lucius73@spinka.com'),(8,'Освальд','Кабблпот',8392309225,'271 Bashirian Falls\nMarquardthaven, KY 07822-2242','hanna92@reynoldstreutel.com'),(9,'Питер','Паркер',0,'6099 Kuhn Tunnel Apt. 564\nDooleyside, MD 91343','wbailey@gmail.com'),(10,'Матчас','Мелоун',9367513797,'4702 Morissette Summit\nTheamouth, HI 71453-1364','polson@gmail.com'),(11,'Фродо','Бэггинс',0,'56069 Friesen Branch\nJaleelshire, UT 06875','ernie.pollich@yahoo.com'),(12,'Джон','Малкович',88,'71893 VonRueden Meadows Suite 212\nGreentown, WA 47328-3460','sid13@yahoo.com'),(13,'Майкл','Киттон',668924,'81204 Liliane Drive\nWalkerport, IL 62699-2558','jesus09@gmail.com'),(14,'Капитан','Америка',0,'51471 Conroy Underpass Apt. 847\nNorth Jalen, IL 39671-0731','holly70@klein.com'),(15,'Харли','Квин',0,'675 Lubowitz Ridges\nLeilanichester, TN 67645','nwisoky@pfeffer.com');
 
 DROP TABLE IF EXISTS claims;
